@@ -21,11 +21,6 @@ window.PWA = {
         });
     
         window.addEventListener('appinstalled', (evt) => {
-            //console.log('App Installed in User Device');
-            gtag('event', 'PWA', {
-                'event_category' : 'Add to Home Screen',
-                'event_label' : 'installed'
-            });
             Util.setCookie('pwa_installed', true, 30);
         });
     },

@@ -108,18 +108,9 @@ function handleResponse( res, action, next ) {
 function handleUrl(action, getState){
     let path = action.meta.path;
     let url = `${ apiBaseUrl }${ path }`;
-    if(action.meta.isbase){
-        url = `${ baseUrl }${ path }`;
-    }else if(path.substr(1,5) == 'users'){
-        url = `${ userBaseUrl }${ path }`;
-    }else if(action.meta.iscomment){
-        url = `${ config.COMMENT_API_BASE_URL }${ path }`;
-    }
-
     if(path.indexOf('http') !== -1){
-        url = path;
+      url = path;
     }
-
     return url;
 }
 

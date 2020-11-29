@@ -21,7 +21,9 @@ module.exports = {
     mode: 'production',
     entry: {
         main: './client/index.js',
-        web_english: './scss/styles.scss'
+        web: './scss/web/styles.scss',
+        wap: './scss/wap/styles.scss',
+        common: './scss/common/styles.scss'
     },
     devtool: false,
     //devtool: 'source-map',
@@ -147,10 +149,7 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[name].css"
         }),
-        new PurgecssPlugin({
-            paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-            whitelistPatterns: [/^slick-/, /^bgImg/, /^new-video/, /^picCaption/, /^text-center/, /^source_link/],
-        }),
+       
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),

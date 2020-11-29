@@ -1,17 +1,17 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import config from "../../config/index";
-import Home from "../components/Home"
+import HomeDesktop from "../components/Desktop/Home"
+import HomeMobile from "../components/Mobile/Home"
 import AuthContext from "../helpers/authContext";
 import { loadBigStory} from "../data/ducks/home/actions";
-
 
 class HomeContainer extends PureComponent {
 	static contextType = AuthContext;
 	static fetching( ssr ) {
 		let storeData = ssr.getState();
 		return [
-			//ssr.dispatch(loadAMPTrail()),
+			//ssr.dispatch(loadBigStory()), //SSR rendering here
 			
 		];
 	}
@@ -29,9 +29,14 @@ class HomeContainer extends PureComponent {
 
 	render() {
     return (
-      <div className="text-center">
-        <Home {...this.props} loading={this.state.loading}/>
-      </div>
+      <Fragment>
+      {
+        this.props.mobile.isMobile ? 
+        <HomeMobile {...this.props} loading={this.state.loading} /> 
+        : 
+        <HomeDesktop {...this.props} loading={this.state.loading} />
+      }
+      </Fragment>
     )
 	}
 
@@ -42,7 +47,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-	loadBigStory
+	//loadBigStory
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

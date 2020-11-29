@@ -26,10 +26,6 @@ let plugins = [
         filename: "[name].css",
         chunkFilename: "[name].css"
     }),
-    new PurgecssPlugin({
-        paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-        whitelistPatterns: [/^slick-/, /^bgImg/, /^new-video/, /^picCaption/, /^sticky-ad/, /^text-center/, /^source_link/, /^wzrk-powered/, /^amp-img/],
-    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new LoadablePlugin(),
@@ -50,7 +46,9 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './client/index.js',
-        web_english: './scss/styles.scss',
+        web: './scss/web/styles.scss',
+        wap: './scss/wap/styles.scss',
+        common: './scss/common/styles.scss',
         vendor: [
             '@babel/polyfill',
             'regenerator-runtime',

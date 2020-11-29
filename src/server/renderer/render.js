@@ -56,7 +56,7 @@ function logger(isMobile, pathname, ex){
 }
 
 function getHeader(extractor, lang, helmet, isMobile, articleData, request){
-    const cssText = getCSSText(isMobile, lang)
+    const cssText = getCSSText(extractor, isMobile, lang)
     const linkTags = extractor.getLinkTags()
     return `<!doctype html><html lang="${lang}"><head>${helmet.title.toString()}${helmet.meta.toString()}${helmet.link.toString()}<meta name="google-site-verification" content="ZgFICIedNvVZl5pV9EfAUeenwta9vBY0Za_GgmV4zuw" />${getAPPIconHTML(lang)}${getPreConnect()}${linkTags}${(process.env.NODE_APP != 'production') ? '<meta name="robots" content="noindex, nofollow" />' :''}<style type="text/css">${cssText}#closeDiv { top: 102px !important; left: auto !important; right: 0 !important;} .skinner-ad #closeDiv{ top: 0px !important; }</style>
     ${helmet.script.toString()}

@@ -67,10 +67,28 @@ export function getMobile(req){
 }
 
 
-export function getCSSText(isMobile, lang){
-	let stylesOriginalFiles = 'web_english.css';
-  let style_css = path.resolve(__dirname, "../../public", "dist", stylesOriginalFiles);
-  return fs.readFileSync(style_css, 'utf8');
+export function getCSSText(extractor, isMobile, lang){
+	const stylePath = extractor.getStyleElements();
+  let stylesOriginalFiles = '';
+  
+	if(isMobile){
+		stylesOriginalFiles = extractor.stats.assetsByChunkName['wap'][0];
+	}else{
+		stylesOriginalFiles = extractor.stats.assetsByChunkName['web'][0];
+	}
+	let PUBLIC_DIR = path.resolve(__dirname, "../../public")
+  let style_css = PUBLIC_DIR+"/dist/"+stylesOriginalFiles;
+  let cssText = fs.readFileSync(style_css, 'utf8');
+  let common_css = PUBLIC_DIR+"/dist/"+extractor.stats.assetsByChunkName['common'][0];
+  
+  cssText += fs.readFileSync(common_css, 'utf8');
+	
+	for (let index = 0; index < stylePath.length; index++) {
+		const style = stylePath[index];
+		let style_css = PUBLIC_DIR+style.props.href;
+		cssText += fs.readFileSync(style_css, 'utf8');
+	}
+	return cssText;
 }
 
 

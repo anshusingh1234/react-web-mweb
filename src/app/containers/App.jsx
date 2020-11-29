@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import config from "../../config/index"
 import AuthContext from "../helpers/authContext";
-import Header from "../components/partials/header";
-import Footer from "../components/partials/footer";
-import Global from "../components/partials/global";
+import HeaderDesktop from "../components/desktop/partials/header";
+import FooterDesktop from "../components/desktop/partials/footer";
+import GlobalDesktop from "../components/desktop/partials/global";
+import HeaderMobile from "../components/mobile/partials/header";
+import FooterMobile from "../components/mobile/partials/footer";
+import GlobalMobile from "../components/mobile/partials/global";
 import Metadata from '../helpers/metadata';
 
 class App extends Component {
@@ -47,10 +50,17 @@ class App extends Component {
 	}
 
 	render() {
-		const Routes = this.props.route.routes;
-		let header = <Header {...this.props}/>
-    let global = <Global {...this.props}/>
-    let footer = <Footer {...this.props}/>
+    const Routes = this.props.route.routes;
+    
+    let header = <HeaderDesktop {...this.props}/>
+    let global = <GlobalDesktop {...this.props}/>
+    let footer = <FooterDesktop {...this.props}/>
+
+    if(this.state.mobile.isMobile){
+      header = <HeaderMobile {...this.props}/>
+      global = <GlobalMobile {...this.props}/>
+      footer = <FooterMobile {...this.props}/>
+    }
 
 		return ( 
 			<Fragment>
